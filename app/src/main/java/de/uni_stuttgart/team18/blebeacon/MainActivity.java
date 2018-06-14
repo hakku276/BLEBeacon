@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements BLEScanner.BLESca
         if(scanRecord != null && !scanRecord.getServiceData().isEmpty()){
             byte[] data = scanRecord.getServiceData(scanRecord.getServiceUuids().get(0));
             Log.d(TAG, "onScanResult: " + Arrays.toString(data));
-            beacon.update(data);
+            beacon.update(data, result.getRssi());
             Log.d(TAG, "onScanResult: namespace id: " + beacon.getNameSpaceId());
             Log.d(TAG, "onScanResult: instance id: " + beacon.getInstanceId());
         }
