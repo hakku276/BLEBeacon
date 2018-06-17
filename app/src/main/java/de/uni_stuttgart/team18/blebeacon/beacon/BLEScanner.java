@@ -75,6 +75,7 @@ public class BLEScanner extends ScanCallback {
      */
     public void startScan() {
         if (!mScanning) {
+            Log.d(TAG, "startScan: Initiating Scan");
             mScanning = true;
             adapter.getBluetoothLeScanner().startScan(this);
         } else {

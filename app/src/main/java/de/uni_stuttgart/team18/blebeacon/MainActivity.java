@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Date;
 import java.util.Locale;
@@ -39,19 +40,19 @@ public class MainActivity extends AppCompatActivity implements BLEScanner.BLESca
     private BLEScanner scanner;
     private EddystoneBeacon beacon;
     private boolean mScanRequested;
+    private BluetoothAdapter mBluetoothAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
-        scanner = new BLEScanner(adapter, this);
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        scanner = new BLEScanner(mBluetoothAdapter, this);
         beacon = EddystoneBeacon.getInstance();
 
         if (isLocationPermissionGranted()) {
             Log.i(TAG, "onCreate: Permission has been granted");
-            scanner.startScan();
         }
 
         //get all the views
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements BLEScanner.BLESca
     protected void onResume() {
         super.onResume();
         if (mScanRequested && isLocationPermissionGranted()) {
-            scanner.startScan();
+            startScan();
         }
     }
 
@@ -77,6 +78,18 @@ public class MainActivity extends AppCompatActivity implements BLEScanner.BLESca
     protected void onPause() {
         super.onPause();
         scanner.stopScan();
+    }
+
+    private void startScan() {
+        if (mBluetoothAdapter != null && !mBluetoothAdapter.isEnabled()) {
+            Log.d(TAG, "startScan: Bluetooth not availble");
+            Toast.makeText(this, "Bluetooth not enabled", Toast.LENGTH_SHORT).show();
+            mScanRequested = false;
+            mButton.setText("Start");
+        } else {
+            scanner.startScan();
+            mButton.setText("Stop");
+        }
     }
 
     private boolean isLocationPermissionGranted() {
@@ -91,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements BLEScanner.BLESca
                     LOCATION_PERMISSION_REQUEST);
 
             if (mScanRequested) {
-                scanner.startScan();
+                startScan();
             }
 
             return false;
@@ -151,14 +164,14 @@ public class MainActivity extends AppCompatActivity implements BLEScanner.BLESca
     @Override
     public void onScanFailed(BLEScanner.ScannerFailureReason reason) {
         Log.e(TAG, "onScanFailed: Could not start scan");
+        Toast.makeText(this, "Sorry! The scan failed", Toast.LENGTH_SHORT).show();
     }
 
 
     public void toggleScanState(View view) {
         mScanRequested = !mScanRequested;
         if (mScanRequested && isLocationPermissionGranted()) {
-            scanner.startScan();
-            mButton.setText("Stop");
+            startScan();
         } else if (!mScanRequested) {
             scanner.stopScan();
             mButton.setText("Start");
