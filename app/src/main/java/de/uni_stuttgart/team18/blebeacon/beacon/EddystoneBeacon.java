@@ -1,6 +1,10 @@
 package de.uni_stuttgart.team18.blebeacon.beacon;
 
+import android.util.Log;
+
 public class EddystoneBeacon {
+
+    private static final String TAG = EddystoneBeacon.class.getSimpleName();
 
     private static final EddystoneBeacon instance = new EddystoneBeacon();
     private String nameSpaceId;
@@ -75,7 +79,12 @@ public class EddystoneBeacon {
      * @param txPower the transmitted signal power
      */
     private void updateDistance(int rssi, byte txPower) {
-        distance = 0;
+        Log.d(TAG, "updateDistance: rssi: " + rssi + " txPower: " + txPower);
+        int pathLoss = txPower - rssi;
+        Log.d(TAG, "updateDistance: pathloss: " + pathLoss);
+        double temp = pathLoss / 20.0;
+        Log.d(TAG, "updateDistance: intermediate: " + temp);
+        this.distance = (float) Math.pow(10, temp);
     }
 
     /**

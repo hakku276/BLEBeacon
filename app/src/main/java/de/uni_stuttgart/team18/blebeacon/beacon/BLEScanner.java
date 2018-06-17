@@ -85,7 +85,7 @@ public class BLEScanner extends ScanCallback {
     /**
      * Stops the scan
      */
-    void stopScan() {
+    public void stopScan() {
         if (mScanning) {
             Log.d(TAG, "stopScan: Stopping LE Scanner");
             adapter.getBluetoothLeScanner().stopScan(this);
