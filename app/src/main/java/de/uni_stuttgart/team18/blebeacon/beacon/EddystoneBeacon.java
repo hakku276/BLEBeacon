@@ -22,6 +22,9 @@ public class EddystoneBeacon {
     }
 
     public void update(byte[] data, int rssi) {
+        if (data == null) {
+            return;
+        }
         switch (data[0]) {
             case 0:
                 updateUIDFrame(data);
@@ -79,11 +82,8 @@ public class EddystoneBeacon {
      * @param txPower the transmitted signal power
      */
     private void updateDistance(int rssi, byte txPower) {
-        Log.d(TAG, "updateDistance: rssi: " + rssi + " txPower: " + txPower);
         int pathLoss = txPower - rssi;
-        Log.d(TAG, "updateDistance: pathloss: " + pathLoss);
-        double temp = pathLoss / 20.0;
-        Log.d(TAG, "updateDistance: intermediate: " + temp);
+        float temp = (pathLoss - 40.0f)/20.0f;
         this.distance = (float) Math.pow(10, temp);
     }
 

@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp"
-            android:text="Namespace ID:"
+            android:text="Namespace ID"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp"
-            android:text="Instance ID:"
+            android:text="Instance ID"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp"
-            android:text="in mV"
+            android:text="0 mV"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -114,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp"
-            android:text="in *C"
+            android:text="0 °C"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -140,7 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp"
-            android:text="in m"
+            android:text="0 m"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -166,7 +166,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp"
-            android:text="in date time"
+            android:text="N/A"
             android:textStyle="bold" />
     </LinearLayout>
 

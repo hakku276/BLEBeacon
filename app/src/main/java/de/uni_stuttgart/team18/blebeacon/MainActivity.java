@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements BLEScanner.BLESca
             }
 
             mTextTemperature.setText(String.format(Locale.getDefault(), "%.02f °C", beacon.getTemperature()));
-            mTextDistance.setText(String.format(Locale.getDefault(), "%.02f °C", beacon.getDistance()));
+            mTextDistance.setText(String.format(Locale.getDefault(), "%.02f m", beacon.getDistance()));
         }
     }
 
